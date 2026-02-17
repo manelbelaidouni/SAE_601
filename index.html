@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Diagramme de Voronoï</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- D3.js and D3-Delaunay -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Générateur de Diagramme de Voronoï</h1>
+            <p>Importez un fichier .txt avec vos coordonnées pour générer le diagramme.</p>
+        </header>
+
+        <section class="controls">
+            <div class="file-input-wrapper">
+                <input type="file" id="fileInput" accept=".txt">
+                <label for="fileInput" class="btn">Choisir un fichier</label>
+            </div>
+            <div class="export-buttons">
+                <button id="exportSvgBtn" class="btn btn-secondary" disabled>Exporter en SVG</button>
+                <button id="exportPngBtn" class="btn btn-secondary" disabled>Exporter en PNG</button>
+            </div>
+        </section>
+
+        <section class="visualization">
+            <div id="voronoi-container"></div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
