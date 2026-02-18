@@ -1,0 +1,487 @@
+/* =========================================================================
+ *  VORONOÏ.JS — Feuille de style principale
+ *  Thème : interface scientifique/laboratoire
+ *  Typographie : JetBrains Mono (code) + Syne (titres)
+ * ========================================================================= */
+
+/* ─── Variables ──────────────────────────────────────────────────────────── */
+:root {
+  --couleur-fond:          #0a0c10;
+  --couleur-panneau:       #0f1318;
+  --couleur-bordure:       #1e2530;
+  --couleur-bordure-vive:  #2a3545;
+  --couleur-accent:        #00d4ff;
+  --couleur-accent-doux:   rgba(0, 212, 255, 0.12);
+  --couleur-accent2:       #ff6b35;
+  --couleur-texte:         #c8d4e0;
+  --couleur-texte-doux:    #5a6a7a;
+  --couleur-succes:        #00e676;
+  --couleur-erreur:        #ff4444;
+  --couleur-avertissement: #ffb300;
+  --rayon:                 6px;
+  --transition:            0.2s ease;
+  --ombre:                 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* ─── Reset ──────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────── */
+body {
+  font-family: 'JetBrains Mono', monospace;
+  background-color: var(--couleur-fond);
+  color: var(--couleur-texte);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Texture de bruit subtile sur le fond */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── En-tête ────────────────────────────────────────────────────────────── */
+header {
+  position: relative;
+  z-index: 10;
+  padding: 20px 32px;
+  border-bottom: 1px solid var(--couleur-bordure);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(180deg, rgba(0, 212, 255, 0.04) 0%, transparent 100%);
+}
+
+.entete-titre {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.entete-titre h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.entete-titre h1 span {
+  color: var(--couleur-accent);
+}
+
+.badge-version {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--couleur-texte-doux);
+  border: 1px solid var(--couleur-bordure-vive);
+  padding: 2px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.entete-statut {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  color: var(--couleur-texte-doux);
+}
+
+/* ─── Voyant de statut ───────────────────────────────────────────────────── */
+.voyant {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--couleur-texte-doux);
+  transition: var(--transition);
+}
+
+.voyant.actif {
+  background: var(--couleur-succes);
+  box-shadow: 0 0 8px var(--couleur-succes);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* ─── Mise en page principale ────────────────────────────────────────────── */
+main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  height: calc(100vh - 65px);
+}
+
+/* ─── Panneau latéral ────────────────────────────────────────────────────── */
+.panneau-lateral {
+  border-right: 1px solid var(--couleur-bordure);
+  background: var(--couleur-panneau);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  animation: glisser-haut 0.4s ease both;
+}
+
+.section-panneau {
+  padding: 20px;
+  border-bottom: 1px solid var(--couleur-bordure);
+}
+
+.section-panneau:last-child {
+  border-bottom: none;
+}
+
+.titre-section {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--couleur-texte-doux);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.titre-section::before {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--couleur-accent);
+}
+
+/* ─── Zone de dépôt ──────────────────────────────────────────────────────── */
+.zone-depot {
+  border: 1px dashed var(--couleur-bordure-vive);
+  border-radius: var(--rayon);
+  padding: 24px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.zone-depot:hover,
+.zone-depot.survol {
+  border-color: var(--couleur-accent);
+  background: var(--couleur-accent-doux);
+}
+
+.zone-depot input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.icone-depot {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  opacity: 0.5;
+}
+
+.texte-depot {
+  font-size: 0.72rem;
+  color: var(--couleur-texte-doux);
+  line-height: 1.6;
+}
+
+.texte-depot strong {
+  color: var(--couleur-accent);
+  display: block;
+  font-size: 0.78rem;
+  margin-bottom: 4px;
+}
+
+/* ─── Info fichier chargé ────────────────────────────────────────────────── */
+.info-fichier {
+  display: none;
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: rgba(0, 212, 255, 0.06);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: var(--rayon);
+  font-size: 0.68rem;
+  color: var(--couleur-texte);
+}
+
+.info-fichier.visible {
+  display: block;
+}
+
+.info-fichier .nom-fichier {
+  color: var(--couleur-accent);
+  font-weight: 600;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ─── Boutons ────────────────────────────────────────────────────────────── */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--rayon);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-bottom: 8px;
+}
+
+.btn:last-child {
+  margin-bottom: 0;
+}
+
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.btn-principal {
+  background: var(--couleur-accent);
+  color: #000;
+}
+
+.btn-principal:hover:not(:disabled) {
+  background: #33dcff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 212, 255, 0.3);
+}
+
+.btn-secondaire {
+  background: transparent;
+  color: var(--couleur-texte);
+  border: 1px solid var(--couleur-bordure-vive);
+}
+
+.btn-secondaire:hover:not(:disabled) {
+  border-color: var(--couleur-accent);
+  color: var(--couleur-accent);
+  background: var(--couleur-accent-doux);
+}
+
+.btn-accent2 {
+  background: transparent;
+  color: var(--couleur-accent2);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+.btn-accent2:hover:not(:disabled) {
+  background: rgba(255, 107, 53, 0.1);
+  border-color: var(--couleur-accent2);
+}
+
+/* ─── Barre de progression ───────────────────────────────────────────────── */
+.conteneur-progression {
+  display: none;
+  margin-top: 12px;
+}
+
+.conteneur-progression.visible {
+  display: block;
+}
+
+.barre-progression {
+  height: 3px;
+  background: var(--couleur-bordure);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.barre-progression-remplissage {
+  height: 100%;
+  background: linear-gradient(90deg, var(--couleur-accent), #0099cc);
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.texte-progression {
+  font-size: 0.62rem;
+  color: var(--couleur-texte-doux);
+  text-align: center;
+}
+
+/* ─── Statistiques ───────────────────────────────────────────────────────── */
+.grille-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.carte-stat {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: var(--rayon);
+  padding: 10px 12px;
+}
+
+.carte-stat .valeur {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: #fff;
+  line-height: 1;
+}
+
+.carte-stat .libelle {
+  font-size: 0.6rem;
+  color: var(--couleur-texte-doux);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+}
+
+/* ─── Journal ────────────────────────────────────────────────────────────── */
+.journal {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: var(--rayon);
+  padding: 10px 12px;
+  font-size: 0.65rem;
+  line-height: 1.7;
+  max-height: 120px;
+  overflow-y: auto;
+  color: var(--couleur-texte-doux);
+}
+
+.journal .ligne-journal {
+  display: flex;
+  gap: 8px;
+}
+
+.journal .horodatage {
+  color: var(--couleur-texte-doux);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.journal .msg-info   { color: var(--couleur-texte); }
+.journal .msg-succes { color: var(--couleur-succes); }
+.journal .msg-erreur { color: var(--couleur-erreur); }
+.journal .msg-avert  { color: var(--couleur-avertissement); }
+
+/* ─── Zone canevas ───────────────────────────────────────────────────────── */
+.zone-canevas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--couleur-fond);
+  position: relative;
+  overflow: hidden;
+  animation: glisser-haut 0.4s 0.1s ease both;
+}
+
+/* Grille de fond */
+.zone-canevas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--couleur-bordure) 1px, transparent 1px),
+    linear-gradient(90deg, var(--couleur-bordure) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.3;
+}
+
+.conteneur-canevas {
+  position: relative;
+  z-index: 1;
+  display: none;
+  box-shadow: 0 0 0 1px var(--couleur-bordure-vive), var(--ombre);
+}
+
+canvas {
+  display: block;
+  image-rendering: pixelated;
+}
+
+/* ─── Écran vide ─────────────────────────────────────────────────────────── */
+.ecran-vide {
+  position: absolute;
+  z-index: 2;
+  text-align: center;
+  pointer-events: none;
+}
+
+.ecran-vide .grand-texte {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 4rem;
+  color: var(--couleur-bordure-vive);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.ecran-vide .sous-texte {
+  font-size: 0.7rem;
+  color: var(--couleur-texte-doux);
+  margin-top: 8px;
+}
+
+/* ─── Tooltip coordonnées ────────────────────────────────────────────────── */
+.tooltip-coordonnees {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  z-index: 10;
+  background: rgba(10, 12, 16, 0.9);
+  border: 1px solid var(--couleur-bordure-vive);
+  border-radius: var(--rayon);
+  padding: 6px 10px;
+  font-size: 0.62rem;
+  color: var(--couleur-texte-doux);
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+}
+
+.tooltip-coordonnees span {
+  color: var(--couleur-accent);
+}
+
+/* ─── Scrollbar personnalisée ────────────────────────────────────────────── */
+::-webkit-scrollbar             { width: 4px; }
+::-webkit-scrollbar-track       { background: transparent; }
+::-webkit-scrollbar-thumb       { background: var(--couleur-bordure-vive); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--couleur-texte-doux); }
+
+/* ─── Animation d'entrée ─────────────────────────────────────────────────── */
+@keyframes glisser-haut {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

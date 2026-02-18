@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voronoï.js</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ EN-TÊTE ══════════════════ -->
+  <header>
+    <div class="entete-titre">
+      <h1>Voronoï<span>.</span>js</h1>
+      <span class="badge-version">v1.0 — Phase 2</span>
+    </div>
+    <div class="entete-statut">
+      <div class="voyant" id="voyantStatut"></div>
+      <span id="texteStatut">En attente d'un fichier</span>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════ PRINCIPAL ════════════════ -->
+  <main>
+
+    <!-- ──────────────────────────── PANNEAU LATÉRAL ─────────────────────── -->
+    <aside class="panneau-lateral">
+
+      <!-- Import fichier -->
+      <div class="section-panneau">
+        <div class="titre-section">Import</div>
+        <div class="zone-depot" id="zoneDepot">
+          <input
+            type="file"
+            id="inputFichier"
+            accept=".txt"
+            aria-label="Sélectionner un fichier de points"
+          />
+          <div class="icone-depot">⬡</div>
+          <div class="texte-depot">
+            <strong>Sélectionner un fichier .txt</strong>
+            Format attendu : X,Y par ligne<br />
+            Ex : 12.5,23.7
+          </div>
+        </div>
+        <div class="info-fichier" id="infoFichier">
+          <div class="nom-fichier" id="nomFichier"></div>
+          <div id="resumeFichier"></div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="section-panneau">
+        <div class="titre-section">Actions</div>
+        <button class="btn btn-principal" id="btnCalculer" disabled>
+          ▶ Calculer le diagramme
+        </button>
+        <button class="btn btn-secondaire" id="btnReinitialiser" disabled>
+          ↺ Réinitialiser
+        </button>
+        <div class="conteneur-progression" id="conteneurProgression">
+          <div class="barre-progression">
+            <div class="barre-progression-remplissage" id="barreProg"></div>
+          </div>
+          <div class="texte-progression" id="texteProgression">Calcul en cours…</div>
+        </div>
+      </div>
+
+      <!-- Export -->
+      <div class="section-panneau">
+        <div class="titre-section">Export</div>
+        <button class="btn btn-secondaire" id="btnExportSVG" disabled>
+          ⬡ Exporter en SVG
+        </button>
+        <button class="btn btn-accent2" id="btnExportPNG" disabled>
+          ⬢ Exporter en PNG
+        </button>
+      </div>
+
+      <!-- Statistiques -->
+      <div class="section-panneau">
+        <div class="titre-section">Statistiques</div>
+        <div class="grille-stats">
+          <div class="carte-stat">
+            <div class="valeur" id="statPoints">—</div>
+            <div class="libelle">Points</div>
+          </div>
+          <div class="carte-stat">
+            <div class="valeur" id="statPixels">—</div>
+            <div class="libelle">Pixels</div>
+          </div>
+          <div class="carte-stat">
+            <div class="valeur" id="statDuree">—</div>
+            <div class="libelle">ms</div>
+          </div>
+          <div class="carte-stat">
+            <div class="valeur" id="statZones">—</div>
+            <div class="libelle">Zones</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Journal -->
+      <div class="section-panneau">
+        <div class="titre-section">Journal</div>
+        <div class="journal" id="journal"></div>
+      </div>
+
+    </aside>
+
+    <!-- ──────────────────────────── ZONE CANEVAS ─────────────────────────── -->
+    <section class="zone-canevas" id="zoneCanevas">
+      <div class="ecran-vide" id="ecranVide">
+        <div class="grand-texte">VORONOÏ</div>
+        <div class="sous-texte">Importez un fichier pour commencer</div>
+      </div>
+      <div class="conteneur-canevas" id="conteneurCanevas">
+        <canvas id="canevas" width="600" height="600"></canvas>
+      </div>
+      <div class="tooltip-coordonnees">
+        x: <span id="coordX">—</span> &nbsp; y: <span id="coordY">—</span>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="voronoi.js"></script>
+  <script src="script.js"></script>
+  <script src="tests/tests.js"></script>
+</body>
+</html>
