@@ -1,0 +1,16 @@
+{
+    "name": "voronoi-generator-mistral",
+    "version": "1.0.0",
+    "description": "Générateur de diagrammes de Voronoï (Mistral)",
+    "type": "module",
+    "scripts": {
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:e2e": "playwright test"
+    },
+    "devDependencies": {
+        "vitest": "^2.0.0",
+        "jsdom": "^24.0.0",
+        "@playwright/test": "^1.42.0"
+    }
+}
