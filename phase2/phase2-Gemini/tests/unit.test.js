@@ -1,10 +1,14 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import * as d3 from 'd3';
-import { VoronoiApp } from '../script.js';
 
-// Setup global d3 for VoronoiApp
+// Setup global environment BEFORE loading script.js
 global.d3 = d3;
 window.d3 = d3;
+window.__VITEST__ = true;
+
+// Load script.js
+await import('../script.js');
+const { VoronoiApp } = window;
 
 describe('VoronoiApp Unit Tests', () => {
     let app;

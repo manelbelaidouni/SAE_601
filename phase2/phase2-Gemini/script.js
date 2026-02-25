@@ -3,7 +3,7 @@
  * Handles the logic for importing coordinates, generating Voronoi diagrams, 
  * and exporting the results.
  */
-export class VoronoiApp {
+class VoronoiApp {
     constructor() {
         // Only run UI logic if we are in a browser environment with a document
         if (typeof document === 'undefined') return;
@@ -172,12 +172,17 @@ export class VoronoiApp {
     }
 
     /**
-     * Exports current SVG to a file
+     * Exports current SVG to a file with optimized dimensions (1000x1000)
      */
     exportToSvg() {
         if (!this.currentSvg) return;
 
-        const svgData = new XMLSerializer().serializeToString(this.currentSvg);
+        // Clone to avoid modifying the UI version
+        const svgClone = this.currentSvg.cloneNode(true);
+        svgClone.setAttribute('width', '1000');
+        svgClone.setAttribute('height', '1000');
+
+        const svgData = new XMLSerializer().serializeToString(svgClone);
         const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
         const svgUrl = URL.createObjectURL(svgBlob);
 
@@ -185,19 +190,17 @@ export class VoronoiApp {
     }
 
     /**
-     * Exports current SVG to a PNG file using a Canvas
+     * Exports current SVG to a PNG file with HD resolution (2000x2000)
      */
     exportToPng() {
         if (!this.currentSvg) return;
 
-        const viewBox = this.currentSvg.viewBox.baseVal;
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
 
-        // High resolution scale
-        const scale = 2;
-        canvas.width = viewBox.width * scale;
-        canvas.height = viewBox.height * scale;
+        // High Resolution 2000x2000 for ideal visualization
+        canvas.width = 2000;
+        canvas.height = 2000;
 
         const img = new Image();
         const svgData = new XMLSerializer().serializeToString(this.currentSvg);
@@ -207,7 +210,7 @@ export class VoronoiApp {
         img.onload = () => {
             ctx.fillStyle = 'white';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, 2000, 2000);
 
             const pngUrl = canvas.toDataURL("image/png");
             this.download(pngUrl, "diagramme-voronoi.png");
@@ -229,9 +232,25 @@ export class VoronoiApp {
     }
 }
 
-// Instantiate the app if not in a test environment
+// Export for tests and browser
+if (typeof window !== 'undefined') {
+    window.VoronoiApp = VoronoiApp;
+}
+
+// Standard Browser instantiation (skip if in Vitest)
 if (typeof document !== 'undefined' && !window.__VITEST__) {
-    document.addEventListener('DOMContentLoaded', () => {
-        new VoronoiApp();
-    });
+    const startApp = () => {
+        // Prevent instantiation if required elements are missing (safety for various loading states)
+        if (!document.getElementById('fileInput')) return;
+
+        if (!window.voronoiAppInstance) {
+            window.voronoiAppInstance = new VoronoiApp();
+        }
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startApp);
+    } else {
+        startApp();
+    }
 }

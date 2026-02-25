@@ -19,13 +19,8 @@ test.describe('Voronoi App E2E', () => {
     });
 
     test('should enable buttons after file upload', async ({ page }) => {
-        const fileChooserPromise = page.waitForEvent('filechooser');
-        await page.click('label[for="fileInput"]');
-        const fileChooser = await fileChooserPromise;
-
-        // Create a mock file
         const mockFilePath = path.resolve(__dirname, '../../test_points.txt');
-        await fileChooser.setFiles(mockFilePath);
+        await page.setInputFiles('#fileInput', mockFilePath);
 
         await expect(page.locator('#exportSvgBtn')).toBeEnabled();
         await expect(page.locator('#exportPngBtn')).toBeEnabled();
@@ -35,10 +30,8 @@ test.describe('Voronoi App E2E', () => {
 
     test('should clear the state when clear button is clicked', async ({ page }) => {
         // Upload first
-        const fileChooserPromise = page.waitForEvent('filechooser');
-        await page.click('label[for="fileInput"]');
-        const fileChooser = await fileChooserPromise;
-        await fileChooser.setFiles(path.resolve(__dirname, '../../test_points.txt'));
+        const mockFilePath = path.resolve(__dirname, '../../test_points.txt');
+        await page.setInputFiles('#fileInput', mockFilePath);
 
         // Clear
         await page.click('#clearBtn');
