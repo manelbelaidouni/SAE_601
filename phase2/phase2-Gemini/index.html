@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Diagramme de Voronoï</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- D3.js and D3-Delaunay -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <header>
+                <h1>Voronoï</h1>
+                <p>Générateur de diagrammes de Voronoï à partir de fichiers de coordonnées.</p>
+            </header>
+
+            <nav class="controls">
+                <div class="control-group">
+                    <label class="section-title">Importation</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="fileInput" accept=".txt">
+                        <label for="fileInput" class="btn btn-primary">
+                            <span>Choisir un fichier</span>
+                        </label>
+                        <span id="fileNameDisplay" class="file-name">Aucun fichier</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="section-title">Actions</label>
+                    <div class="button-stack">
+                        <button id="clearBtn" class="btn btn-danger" disabled>Réinitialiser</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="section-title">Exportation</label>
+                    <div class="button-stack">
+                        <button id="exportSvgBtn" class="btn btn-secondary" disabled>Exporter en SVG</button>
+                        <button id="exportPngBtn" class="btn btn-secondary" disabled>Exporter en PNG</button>
+                    </div>
+                </div>
+            </nav>
+
+            <footer class="app-info">
+                <small>SAE 601 - Phase 2</small>
+            </footer>
+        </aside>
+
+        <main class="visualization-area">
+            <div id="voronoi-container" class="empty-state">
+                <div class="placeholder-msg">
+                    <p>Importez un fichier .txt pour commencer</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
