@@ -2,7 +2,7 @@
 
 Ce document répertorie les travaux effectués lors de la **Phase Mistral** pour le projet de Générateur de Diagramme de Voronoï.
 
-## 🚀 Prompts Utilisés
+## Prompts Utilisés
 
 | Étape | Prompt |
 | :--- | :--- |
@@ -14,7 +14,7 @@ Ce document répertorie les travaux effectués lors de la **Phase Mistral** pour
 | **6** | Lorsque je lance les tests E2E avec playwright j'ai une erreur liée à l'importation du fichier .txt|
 | **7** | L'export PNG est bien mais l' image est de mauvaise qualité|
 
-## 📝 Journal des Corrections
+## Journal des Corrections
 
 | Problème Rencontré | Cause | Correction Apportée |
 | :--- | :--- | :--- |
@@ -24,7 +24,7 @@ Ce document répertorie les travaux effectués lors de la **Phase Mistral** pour
 | **Erreur import fichier E2E** | Playwright ne pouvait pas importer le fichier `.txt` avec le sélecteur de fichier standard. | Utilisation de la méthode `setInputFiles` de Playwright (Best Practice) pour simuler l'import. |
 | **Export PNG de mauvaise qualité** | Résolution par défaut du canvas trop faible pour un export en PNG. | Augmentation de la résolution du canvas pour l'export en PNG. |
 
-## 🧪 Tests Logiciels
+## Tests Logiciels
 
 Les test générer par l'IA sont les suivants :
 
@@ -38,7 +38,7 @@ Les test générer par l'IA sont les suivants :
 - **Objectif** : Simule un utilisateur réel : chargement de la page, import d'un fichier, génération du diagramme, effacement du canvas.
 - **Lancement** : avec la commande `npm run test:e2e`
 
-## 📊 Comparatif : IA vs Développement Humain
+## Comparatif : IA vs Développement Humain
 
 | Aspect | IA (Mistral) | Développement Humain |
 | :--- | :--- | :--- |
@@ -49,7 +49,7 @@ Les test générer par l'IA sont les suivants :
 | **Qualité UI** | Premier design tres basique, amélioré après un prompt. | Tout comme l' ia le but premier n'etait pas de creer une belle application mais de faire en sorte que ca marchee. |
 | **Adaptabilité** | Le Refactoring et les améliorations ont ete tres rapide a mettre en place. | Travail de réécriture manuel plus long. |
 
-## 🛠️ Installation et Lancement
+## Installation et Lancement
 
 1. Accédez au dossier : `cd phase2/phase2-Mistral`
 2. Installez les dépendances : `npm install`
