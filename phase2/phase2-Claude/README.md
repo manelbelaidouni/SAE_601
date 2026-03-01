@@ -21,6 +21,7 @@ Ce document répertorie les travaux effectués lors de la **Phase Claude** pour 
 | Fonctions difficiles à tester | Une partie du code de calcul dépendait directement du canvas et du navigateur. | Séparation des fonctions de calcul (parsing, distance, Voronoï) dans un fichier distinct pour pouvoir les tester avec Vitest. |
 | Tests non exécutés | Le projet n’était pas configuré pour exécuter des tests avec Node. Il n’y avait pas de package.json ni de dépendances installées. | Initialisation du projet avec npm, installation de Vitest et ajout d’un script npm test. |
 | Erreur Vitest | Une erreur de syntaxe dans core.test.js empêchait le lancement des tests. | Correction de la ligne incorrecte puis relance de npm test jusqu’à validation complète. |
+| Import du fichier `.txt` bloqué lors de l’ouverture via `file://` | Les modules ES et l’utilisation de `fetch` sont restreints par la politique de sécurité du navigateur en mode local | Adaptation du mode d’exécution : lancement de l’application via un serveur local afin d’éviter les restrictions liées au protocole `file://`, et ajustement des imports si nécessaire |
 
 ## Tests Logiciels
 
