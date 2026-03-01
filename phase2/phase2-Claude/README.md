@@ -57,7 +57,8 @@ Les tests mis en place sont les suivants :
 
 ## Installation et lancement 
 
-Accédez au dossier : cd phase2/phase2-Claude
-Installez les dépendances : npm install
-Lancez l'application : Ouvrez index.html dans votre navigateur.
-Lancez les tests : npm test
+1. Accédez au dossier : `cd phase2/phase2-Mistral`
+2. Installez les dépendances : `npm install`
+3. Lancez l'application : Ouvrez `index.html` dans votre navigateur.
+4. Lancez les tests : `npm test`
+5. Lancez les tests E2E : `npm run test:e2e`
