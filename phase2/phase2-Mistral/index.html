@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagramme de Voronoï</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Générateur de Diagramme de Voronoï</h1>
+    <div class="controls">
+        <input type="file" id="importFile" accept=".txt">
+        <button id="generateBtn">Générer</button>
+        <button id="exportSVGBtn">Exporter SVG</button>
+        <button id="exportPNGBtn">Exporter PNG</button>
+        <button id="clearBtn">Effacer</button>
+    </div>
+    <div id="status">Prêt</div>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
