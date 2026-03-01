@@ -86,7 +86,7 @@ class CanvasVoronoiRenderer {
     const h = this.canvas.height;
     const sx = (point.x - worldBounds.minX) / (worldBounds.maxX - worldBounds.minX);
     const sy = (point.y - worldBounds.minY) / (worldBounds.maxY - worldBounds.minY);
-    return { x: sx * w, y: h - sy * h };
+    return { x: sx * w, y: sy * h };
   }
 
   downloadPNG(filename = "voronoi.png") {

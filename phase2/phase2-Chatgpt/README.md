@@ -22,9 +22,9 @@ Ce document répertorie les travaux effectués lors de la **Phase Chatgpt** pour
 
 | Problème / Limite constaté | Cause | Correction apportée | Temps |
 | :--- | :--- | :--- | :--- |
-| **Tests peu rigoureux** | L'IA a proposé des tests manuels au début. | **Migration vers Vitest** : Refactorisation complète du fichier `tests.js` pour une automatisation réelle. | 15 min |
+| **Tests peu rigoureux** | L'IA a proposé des tests manuels au début. | **Migration vers Vitest** : Refactorisation complète du fichier `tests.js`. | 15 min |
 | **Dépendances manquantes** | Pas de gestionnaire de paquets initial. | Création du `package.json` et installation des dépendances nécessaires au projet. | 5 min |
-| **Conflits de fins de ligne** | Différence LF (IA) / CRLF (Windows). | Normalisation via Git pour assurer la cohérence du dépôt équipe. | 2 min |
+| **Conflits de fins de ligne** | Différence LF (Linux) / CRLF (Windows). | Normalisation via Git pour assurer la cohérence du dépôt équipe. | 10 min |
 | **Ergonomie du Parsing** | Risque de plantage sur fichiers mal formatés. | Ajout de condition de filtrage des lignes vides. | 5 min |
 | **Visibilité des points** | Points trop petits sur le canvas par défaut. | Ajustement de la fonction de dessin pour un meilleur rendu visuel (rayon des points). | 5 min |
 
@@ -49,7 +49,7 @@ L'application intègre une suite de tests automatisée et une phase de validatio
 
 ## 📊 Comparatif : IA vs Développement Humain
 
-| Aspect | Développement Humain (L'Équipe) | IA (ChatGPT - GPT-4o) |
+| Aspect | Développement Humain (L'Équipe) | IA (ChatGPT) |
 | :--- | :--- | :--- |
 | **Productivité** | apprentissage de l'algorithme de VORONOI, codage pas à pas. Plusieurs heures de travail. | génération complète de la structure et de l'algorithme en moins d'une minute. |
 | **Rigueur & Architecture** | Approche pragmatique : focus sur un code fonctionnel, code smell souvent pour faciliter le développement. | Approche théorique : application immédiate des principes SOLID et séparation stricte des fichiers (ESM). |
