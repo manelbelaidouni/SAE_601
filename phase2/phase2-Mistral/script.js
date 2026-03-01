@@ -172,13 +172,40 @@ document.addEventListener('DOMContentLoaded', () => {
         setStatus('Canvas effacé.');
     }
 
+    function scalePoints(pts, width, height) {
+        if (pts.length === 0) return [];
+        let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+        for (let p of pts) {
+            if (p.x < minX) minX = p.x;
+            if (p.x > maxX) maxX = p.x;
+            if (p.y < minY) minY = p.y;
+            if (p.y > maxY) maxY = p.y;
+        }
+
+        const padding = 20;
+        const rangeX = maxX - minX || 1;
+        const rangeY = maxY - minY || 1;
+
+        const scaleX = (width - 2 * padding) / rangeX;
+        const scaleY = (height - 2 * padding) / rangeY;
+        const scale = Math.min(scaleX, scaleY);
+
+        const offsetX = (width - rangeX * scale) / 2 - minX * scale;
+        const offsetY = (height - rangeY * scale) / 2 - minY * scale;
+
+        return pts.map(p => ({
+            x: p.x * scale + offsetX,
+            y: p.y * scale + offsetY
+        }));
+    }
+
     importFile.addEventListener('change', (event) => {
         const file = event.target.files[0];
         if (!file) return;
 
         parseFile(file)
             .then(parsedPoints => {
-                points = parsedPoints;
+                points = scalePoints(parsedPoints, canvas.width, canvas.height);
                 setStatus(`${points.length} points importés. Cliquez sur Générer pour afficher le diagramme.`);
             })
             .catch(error => {
@@ -192,13 +219,13 @@ document.addEventListener('DOMContentLoaded', () => {
     exportPNGBtn.addEventListener('click', exportPNG);
     clearBtn.addEventListener('click', clearCanvas);
 
-    window.testDistance = function() {
+    window.testDistance = function () {
         console.log('Test de la fonction distance:');
         console.log(distance({ x: 0, y: 0 }, { x: 3, y: 4 })); // Devrait être 5
         console.log(distance({ x: 1, y: 1 }, { x: 1, y: 1 })); // Devrait être 0
     };
 
-    window.testParsing = function() {
+    window.testParsing = function () {
         console.log('Test de la fonction de parsing:');
         const testContent = "1,2\n3,4\n,5\n6,7\n8,\n9,10";
         const lines = testContent.split('\n');
