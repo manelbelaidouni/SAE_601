@@ -1,0 +1,308 @@
+/* ─── Reset & Variables ────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0d0f12;
+  --surface:   #141720;
+  --surface2:  #1c2030;
+  --border:    #252a3a;
+  --accent:    #4af0c4;
+  --accent2:   #f0c44a;
+  --danger:    #f05a4a;
+  --text:      #d8dde8;
+  --text-muted:#6b7494;
+  --radius:    6px;
+  --font-mono: 'Courier New', Courier, monospace;
+  --font-ui:   'Georgia', serif;
+}
+
+/* ─── Layout ───────────────────────────────────────────────────── */
+html, body { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ─── Sidebar ──────────────────────────────────────────────────── */
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow-y: auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand-icon {
+  font-size: 28px;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.brand h1 {
+  font-family: var(--font-ui);
+  font-size: 20px;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+
+.brand-sub {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* ─── Panels ───────────────────────────────────────────────────── */
+.panel {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.panel-title {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  font-weight: normal;
+  margin-bottom: 2px;
+}
+
+/* ─── File Drop ────────────────────────────────────────────────── */
+.file-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 20px 12px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  text-align: center;
+}
+
+.file-drop:hover, .file-drop.drag-over {
+  border-color: var(--accent);
+  background: rgba(74, 240, 196, 0.04);
+}
+
+.drop-icon { font-size: 22px; color: var(--accent); }
+.drop-label { font-size: 12px; color: var(--text); }
+.drop-hint  { font-size: 10px; color: var(--text-muted); }
+
+.file-info {
+  font-size: 11px;
+  color: var(--accent);
+  background: rgba(74, 240, 196, 0.07);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  border: 1px solid rgba(74, 240, 196, 0.2);
+  word-break: break-all;
+}
+
+/* ─── Buttons ──────────────────────────────────────────────────── */
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  width: 100%;
+  text-align: left;
+}
+
+.btn-icon { font-size: 14px; }
+
+.btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.btn-primary {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn-primary:not(:disabled):hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.btn-secondary:not(:disabled):hover {
+  border-color: var(--accent2);
+  color: var(--accent2);
+}
+
+.btn-test:not(:disabled):hover {
+  border-color: #a07af0;
+  color: #a07af0;
+}
+
+/* ─── Stats ────────────────────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.stat {
+  background: var(--surface2);
+  border-radius: var(--radius);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-size: 20px;
+  color: var(--accent);
+  font-family: var(--font-ui);
+}
+
+.stat-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+/* ─── Tests ────────────────────────────────────────────────────── */
+.test-results {
+  background: var(--surface2);
+  border-radius: var(--radius);
+  padding: 10px;
+  max-height: 240px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.test-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 11px;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.test-item:last-child { border-bottom: none; }
+
+.test-pass { color: var(--accent); }
+.test-fail { color: var(--danger); }
+
+.test-status {
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.test-summary {
+  font-size: 11px;
+  font-weight: bold;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* ─── Main ─────────────────────────────────────────────────────── */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px;
+  overflow: auto;
+  position: relative;
+}
+
+/* ─── Error Banner ─────────────────────────────────────────────── */
+.error-banner {
+  width: 100%;
+  max-width: 640px;
+  background: rgba(240, 90, 74, 0.1);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  color: var(--danger);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* ─── Canvas ───────────────────────────────────────────────────── */
+.canvas-wrapper {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(74, 240, 196, 0.04);
+}
+
+#voronoiCanvas {
+  display: block;
+  width: 600px;
+  height: 600px;
+}
+
+.canvas-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 12px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.placeholder-icon {
+  font-size: 48px;
+  opacity: 0.3;
+}
+
+/* ─── Utilities ────────────────────────────────────────────────── */
+.hidden { display: none !important; }
+
+/* ─── Scrollbar ────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
