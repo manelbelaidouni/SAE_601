@@ -47,7 +47,7 @@ L'application intègre une suite de tests automatisée et une phase de validatio
     * **Fichier B :** `20,40`, `53,45`, `180,290`, `125,237`.
 * **Résultat :** L'auto-scaling ajuste dynamiquement le zoom. Les points sont centrés et le diagramme reste proportionnel peu importe l'échelle.
 
-
+## 📊 Comparatif : IA vs Développement Humain
 
 | Aspect | Développement Humain (L'Équipe) | IA (ChatGPT - GPT-4o) |
 | :--- | :--- | :--- |
