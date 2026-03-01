@@ -33,7 +33,7 @@ Les test générer par l'IA sont les suivants :
 - **Objectif** : Vérifie la logique pure du code : calcul de distance euclidienne, attribution cyclique des couleurs, parsing des fichiers `.txt` (coordonnées valides, lignes vides, erreurs...).
 - **Lancement** : avec la commande `npm test`
 
-### 2. Tests de Bout en Bout (`Playwright`)
+### 2. Tests de Bout en Bout
 - **Lieu** : `tests/e2e.test.js`
 - **Objectif** : Simule un utilisateur réel : chargement de la page, import d'un fichier, génération du diagramme, effacement du canvas.
 - **Lancement** : avec la commande `npm run test:e2e`
